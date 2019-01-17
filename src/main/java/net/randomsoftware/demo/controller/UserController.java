@@ -52,12 +52,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path="/{id}", method = DELETE, consumes = "application/json")
-    public @ResponseBody ResponseEntity<User> delete(@RequestBody User user, @PathVariable("id") Integer id) {
+    @RequestMapping(path="/{id}", method = DELETE)
+    public @ResponseBody ResponseEntity<User> delete(@PathVariable("id") Integer id) {
         Optional<User> currentUser = userRepository.findById(id);
 
         if (currentUser.isPresent()) {
-            user.setId(id);
             userRepository.delete(currentUser.get());
             return new ResponseEntity<>(HttpStatus.OK);
         }
