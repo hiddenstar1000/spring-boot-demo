@@ -20,7 +20,8 @@ public class UserController {
     private UserRepository userRepository;
 
     @RequestMapping(method = POST, consumes = "application/json")
-    public @ResponseBody User add(@RequestBody User user) {
+    public @ResponseBody
+    User add(@RequestBody User user) {
         return userRepository.save(user);
     }
 
@@ -29,8 +30,9 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @RequestMapping(path="/{id}", method = GET, consumes = "application/json")
-    public @ResponseBody ResponseEntity<User> get(@PathVariable("id") Integer id) {
+    @RequestMapping(path="/{id}", method = GET, produces = "application/json")
+    public @ResponseBody
+    ResponseEntity<User> get(@PathVariable("id") Integer id) {
         Optional<User> user = userRepository.findById(id);
 
         if (user.isPresent()) {
